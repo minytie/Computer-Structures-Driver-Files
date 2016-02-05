@@ -9,9 +9,26 @@
 
 /*Initialization of the UserButton*/
 void f3d_user_btn_init(void){
+
+  // initialized
+  GPIO_InitTypeDef GPIO_InitStructure;
+  GPIO_StructInit(&GPIO_InitStructure);
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+
+  //sets parameters
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+
+  //adds the pin_0
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+
 }
 
 /*reads the User Button*/
 int user_btn_read(void){
+
+  return GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0);
   
 }

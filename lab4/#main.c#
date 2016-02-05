@@ -12,12 +12,14 @@ void delay(void) {
 
 int main(void) {
 
+  // initialize the buttons
   f3d_user_btn_init();
   f3d_led_init();
 
+  // start with off just to be sure
   f3d_led_all_off();
 
-
+  // incrementer 
   int x = 0; 
 
   while(1){
