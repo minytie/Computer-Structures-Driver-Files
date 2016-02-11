@@ -1,0 +1,21 @@
+Robert Mulligan
+
+
+    1) What are specs of the board you are using (ex. Speed, RAM, Flash)?
+       
+       
+    2) What does GPIO stand for?
+       "General Purpose Input/Output"
+
+    3) *Disregarded question*
+
+    4) What are the Port and Pin Numbers of the two Green LEDs?
+      Port: E pin: 15 
+      Port: E pin: 11 
+       
+    5) What are the public attributes of the GPIO_InitTypeDef Struct?
+
+
+Were there any difficulties? If not, what did you learn? 
+
+I had difficulties with syntax and finding all the points. Sometimes I didn't know
