@@ -89,7 +89,11 @@ void f3d_led_init(void) {
 }
 /*Turns on the appropriate led as specified by the parameter.*/
 void f3d_led_on(int led) {
+
+
   /*YOUR CODE HERE*/
+
+  // a switch case that picks which led chosen to light up
   switch(led){
   case 0:
     GPIOE->BSRR = GPIO_Pin_9;
@@ -136,7 +140,7 @@ void f3d_led_on(int led) {
 /*Turns off the approiate led as specified by the parameter*/ 
 void f3d_led_off(int led) {
   /*YOUR CODE HERE*/
-
+  // a swtich led to turn off
   switch(led){
   case 0:
     GPIOE->BRR = GPIO_Pin_9;
@@ -184,6 +188,7 @@ void f3d_led_off(int led) {
 /*Turns on all LEDs*/
 void f3d_led_all_on(void) {
   /*YOUR CODE HERE*/
+  // turns them all off, going through each pin
  GPIOE->BSRR = GPIO_Pin_9;
  GPIOE->BSRR = GPIO_Pin_8;
  GPIOE->BSRR = GPIO_Pin_15;  
@@ -198,6 +203,8 @@ void f3d_led_all_on(void) {
 /*Turns off all LEDs*/
 void f3d_led_all_off(void) {
   /*YOUR CODE HERE*/
+
+  // turns all off individually
  GPIOE->BRR = GPIO_Pin_9;
  GPIOE->BRR = GPIO_Pin_8;
  GPIOE->BRR = GPIO_Pin_15;  

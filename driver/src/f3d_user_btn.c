@@ -43,7 +43,7 @@ void f3d_user_btn_init(void){
 
 /*reads the User Button*/
 int user_btn_read(void){
-
+  // returns through this function already in the library
   return GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0);
   
 }

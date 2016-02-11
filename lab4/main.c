@@ -25,25 +25,30 @@ void delay(void) {
 
 int main(void) {
 
+  //create button instance
   f3d_user_btn_init();
   f3d_led_init();
 
+  // turn all led's off
   f3d_led_all_off();
 
-
+  //incrementor
   int x = 0; 
 
+  //a while loop
   while(1){
 
+    // runs through the loop but stops if the button is hit
     if(user_btn_read() & x < 9 ) {   f3d_led_all_off();  f3d_led_on(x-1);}
     else {
+      // adds a delay and then head to next button
       delay();
       delay();
       f3d_led_on(x);
       f3d_led_off(x-1);
       x++;
     }
-
+    // if the incrementor reaches the end restart it again after delay
     if(x==9) {   
       f3d_led_all_on(); 
       delay();
