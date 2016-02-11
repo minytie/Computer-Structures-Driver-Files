@@ -2,6 +2,21 @@
  *f3d_user_btn.c 
  *contains the init and read functions for the User Button
  *********************************/
+
+/**********************************************************
+* F3d_user_btn.c
+*
+* These definitions set up the I/O interface for the button
+*
+*   Author: Robert Mulligan
+*   Date Created: 2/5/2016
+*   Last Modified by: Robert Mulligan
+*   Date Last Modified: 2/8/2016
+*   Assignment: using the button
+*   Part of: Lab4
+*/
+
+
 #include <stm32f30x.h>
 #include <stm32f30x_gpio.h>
 #include <stm32f30x_rcc.h>

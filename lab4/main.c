@@ -1,3 +1,16 @@
+/**********************************************************
+* main.c
+*
+*  The main file for the led and button ussage on the board
+*
+*   Author: Robert Mulligan
+*   Date Created: 2/5/2016
+*   Last Modified by: Robert Mulligan
+*   Date Last Modified: 2/8/2016
+*   Assignment: Lighting LEDs and using the button
+*   Part of: Lab4
+*/
+
 #include <stm32f30x.h>  // Pull in include files for F30x standard drivers 
 #include <f3d_led.h>     // Pull in include file for the local drivers
 #include <f3d_user_btn.h>

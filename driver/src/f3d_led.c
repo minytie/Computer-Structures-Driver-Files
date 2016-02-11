@@ -2,6 +2,24 @@
  *f3d_led.c - contains intializations/functions for the leds
  ************************/
 
+/**********************************************************
+* F3d_led.c
+*
+* These definitions set up the I/O interface led
+*
+*   Author: Robert Mulligan
+*   Date Created: 2/5/2016
+*   Last Modified by: Robert Mulligan
+*   Date Last Modified: 2/8/2016
+*   Assignment: Lighting LEDs
+*   Part of: Lab4
+*/
+
+
+
+
+
+
 #include <stm32f30x.h>
 #include <stm32f30x_gpio.h>
 #include <stm32f30x_rcc.h>
