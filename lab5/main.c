@@ -44,10 +44,44 @@ int main(void) {
   setvbuf(stdin, NULL, _IONBF, 0);
   setvbuf(stdout, NULL, _IONBF, 0);
   setvbuf(stderr, NULL, _IONBF, 0);
+
+
+  /* 
+  while(1) {
+    putchar('a');
+    }*/
+  
+
+  /*
+putchar(getchar());
   
   while (1){
     putstring("hello"); 
- }
+    }*/
+
+
+ 
+ while(1) {
+int lines = 0;
+	int words = 0;
+	int characters = 0; 
+	int c;	//initializing origin counters
+	while ((c = getchar()) != 0x1b) {
+	characters++;
+	if (c == '\n') {
+	lines++;
+	words++;
+	}
+	if (c == ' ' || c == '\t' || c ==  '\r' || c =='\f' || c=='\v') {
+	words++;
+		}
+	}
+
+  printf("%d,  ",lines);
+  printf("%d,  ",words);
+  printf("%d\n",characters);
+
+	}
 }
 
 #ifdef USE_FULL_ASSERT

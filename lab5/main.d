@@ -1,4 +1,4 @@
-f3d_user_btn.o: ../driver/src/f3d_user_btn.c \
+main.o: main.c ../driver/inc/f3d_uart.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/CMSIS/Device/ST/STM32F30x/Include/stm32f30x.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cmInstr.h \
@@ -27,4 +27,5 @@ f3d_user_btn.o: ../driver/src/f3d_user_btn.c \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_tim.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_usart.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_wwdg.h \
- /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_misc.h
+ /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_misc.h \
+ ../driver/inc/f3d_led.h
