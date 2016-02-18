@@ -37,13 +37,6 @@
 #include <f3d_delay.h>
 #include <glcdfont.h>
 
-// Comment out the following line if you are using the older blue
-// pcb ST7735 LCD display. The 565 16-bit encoding is different in the 
-// RED pcb displays requiring the red and blue fields to be swapped. 
-// The swap occurs in the lcd_f3d_pushColor function. This change
-// was introduced to support the new C335 lab systems deployed in Spring 2016. 
-#define RED_LCD_DISPLAY
-
 static uint8_t madctlcurrent = MADVAL(MADCTLGRAPHICS);
 
 void f3d_lcd_sd_interface_init(void) {
@@ -241,23 +234,7 @@ void f3d_lcd_setAddrWindow ( uint16_t x0 , uint16_t y0 , uint16_t x1 , uint16_t 
 }
 
 void f3d_lcd_pushColor(uint16_t *color,int cnt) {
-  uint16_t red,blue,local_color;
-  // Swap Red and Blue
-#ifdef RED_LCD_DISPLAY
-  // The red colored ST7735 Displays have an issue where the red and blue fields
-  // in the 565 16-bit color are swapped. The following code swaps the colors back
-  // so that the original lab manual and github wiki instructions do not need to be 
-  // changed. This change was introduced to support the new lab boards that were 
-  // deployed in the Spring of 2016. 
-  local_color = *color;
-  red = (local_color & 0x001F) << 11;
-  blue = (local_color & 0xF800) >> 11;
-  local_color &= ~0xF81F;
-  local_color = local_color | red | blue;
-  LcdWrite16(LCD_D,&local_color,cnt);
-#else 
   LcdWrite16(LCD_D,color,cnt);
-#endif
 }
 
 static void f3d_lcd_writeCmd(uint8_t c) {
