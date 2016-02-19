@@ -16,14 +16,14 @@
 //The arrays that store the bits
 
 int gitBitsChar(unsigned char c, char answer[]){
-  int i=7;
-  while(i>-1){
+  int i=8;
+  while(c<8){
     if(c&1) answer[i] = '1';
     else answer[i] = '0';
-    c=c>>1;
-    i--;
+    c=c<<1;
+    i++;
   }
-  answer[7]=0;
+  answer[i]=0;
   return 0;
 }
 
@@ -40,7 +40,7 @@ int gitBitsShort(unsigned short s, char answer[]){
 }
 
 int gitBitsInt(int yikes, char answer[]){
-  int i = 0;
+  int i = 32;
   while(yikes<32){
     if(yikes&1) answer[i] = '1';
     else answer[i] = '0';
@@ -61,7 +61,8 @@ int main(){
   char ans2[32];
   char ans3[32];
   char ans4[32];
-  while (1){
+  int i = 0;
+  while (i < 1){
     gitBitsShort((unsigned short) 3200, ans1);
     gitBitsChar((unsigned char) 'a', ans2);
     gitBitsInt(-94, ans3);
@@ -70,6 +71,7 @@ int main(){
     printf("unsigned a = %s\n", ans2);
     printf("-94 = %s\n", ans3);
     printf("unsigned 234 = %s\n", ans4);
+    i++;
   }
  
 }

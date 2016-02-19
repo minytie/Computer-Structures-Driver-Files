@@ -1,10 +1,10 @@
 /* main.c --- 
  * 
  * Filename: main.c
- * Description: 
- * Author: 
- * Maintainer: 
- * Created: Thu Jan 10 11:23:43 2013
+ * Description: main program 
+ * Author: Robert Mulligan
+ * Maintainer: Robert Mulligan
+ * Created: Thu Feb 11:23:43 2016
  * Last-Updated: 
  *           By: 
  *     Update #: 0
