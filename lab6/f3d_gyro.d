@@ -1,4 +1,5 @@
-f3d_gyro.o: ../driver/src/f3d_gyro.c ../driver/inc/f3d_gyro.h \
+f3d_gyro.o: ../driver/src/f3d_gyro.c \
+ /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_gpio.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/CMSIS/Device/ST/STM32F30x/Include/stm32f30x.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cm4.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/CMSIS/Include/core_cmInstr.h \
@@ -15,7 +16,6 @@ f3d_gyro.o: ../driver/src/f3d_gyro.c ../driver/inc/f3d_gyro.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_dma.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_exti.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_flash.h \
- /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_gpio.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_syscfg.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_i2c.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_iwdg.h \
@@ -27,4 +27,5 @@ f3d_gyro.o: ../driver/src/f3d_gyro.c ../driver/inc/f3d_gyro.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_tim.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_usart.h \
  /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_wwdg.h \
- /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_misc.h
+ /l/arm2/STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver/inc/stm32f30x_misc.h \
+ ../driver/inc/f3d_gyro.h
