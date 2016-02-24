@@ -20,12 +20,12 @@ void f3d_gyro_interface_init() {
   GPIO_Init(GPIOA, &GPIO_InitStructure);
   
   //MISO PA6 
-  GPIO_PinAFConfig(GPIOC,6,GPIO_AF_5);
+  GPIO_PinAFConfig(GPIOA,6,GPIO_AF_5);
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
   
   //MOSI PA7
-  GPIO_PinAFConfig(GPIOC,7,GPIO_AF_5);
+  GPIO_PinAFConfig(GPIOA,7,GPIO_AF_5);
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
 
@@ -125,7 +125,7 @@ void f3d_gyro_write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite
     //WE are now sending dummy data so we can read the valuable!
     //remember we must write to read!
     //putting the information in the buffer
-    *pBuffer = f3d_gyro_sendbyte(((uint8_t)0x00));
+    f3d_gyro_sendbyte(*pBuffer);
     NumByteToWrite--;
     pBuffer++;
   }
