@@ -1,3 +1,17 @@
+/**********************************************************
+* f3d_uart.c
+*
+* The UART initialization and functions for I/O
+*
+* Author: Robert Mulligan
+* Date Created: 2/11/2016
+* Last Modified by: Robert Mulligan
+* Date Last Modified: 2/17/2016
+* Assignment: 
+* Part of: lab5 lab6
+*/
+
+
 /************************** 
  *f3d_uart.c 
  *contains the initialization basic i/o functions for UART

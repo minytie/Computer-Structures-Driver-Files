@@ -1,3 +1,19 @@
+/**********************************************************
+* f3d_gyro.c
+*
+* The gyro on the chip reading and writing 
+*
+* Author: Robert Mulligan
+* Date Created: 2/17/2016
+* Last Modified by: Robert Mulligan
+* Date Last Modified: 2/24/2016
+* Assignment: f3d_gyro
+* Part of: Lab6
+*/
+
+
+
+
 #include <stm32f30x_gpio.h>
 #include <stm32f30x_rcc.h>
 #include <f3d_gyro.h>
@@ -13,6 +29,7 @@ void f3d_gyro_interface_init() {
 
   GPIO_StructInit(&GPIO_InitStructure);  
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7;
+
   //setting parameters
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
@@ -161,11 +178,13 @@ static uint8_t f3d_gyro_sendbyte(uint8_t byte) {
 }
 /*gets the data*/
 void f3d_gyro_getdata(float *pfData) {
-  //
-  //
+  
+  //creating variables required for reading with
+  // the library structs made for the Cortex-M0
   int16_t RawData[3];
   uint8_t tmpbuffer[6];
   int i;
+  
   //We are going to write some data to the gyro
   f3d_gyro_write(tmpbuffer,0x28,6);
   //Then we are going to read it

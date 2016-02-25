@@ -1,3 +1,17 @@
+/**********************************************************
+* main.c
+*
+* The main function for lab6
+*
+* Author: Robert Mulligan
+* Date Created: 2/17/2016
+* Last Modified by: Robert Mulligan
+* Date Last Modified: 2/24/2016
+* Assignment: main
+* Part of: Lab6
+*/
+
+
 //main.c for lab6
 #include <f3d_uart.h>
 #include <stdio.h>
