@@ -36,12 +36,13 @@ int main(void){
   setvbuf(stdout, NULL, _IONBF, 0);
   setvbuf(stderr, NULL, _IONBF, 0);
 
-  int j =0;
+
   while(1) {
     
     f3d_led_all_on();
     delay();
     
+    //this takes quite some time :/ 
     int i; 
     for(i = 0; i < 100; i++){ 
       printf("call_%d\n", i);
