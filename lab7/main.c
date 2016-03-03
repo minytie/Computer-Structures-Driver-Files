@@ -1,11 +1,11 @@
 /* main.c --- 
  * 
  * Filename: main.c
- * Description: 
+ * Description: Main method for code
  * Author: Robert
  * Maintainer: 
- * Created: Thu Jan 10 11:23:43 2013
-/* Code: */
+ * Created: Thu Feb 25 2016
+ * Code: */
 
 #include <stm32f30x.h>  // Pull in include files for F30x standard drivers 
 #include <f3d_led.h>     // Pull in include file for the local drivers
@@ -52,9 +52,9 @@ int main(void) {
   sprintf(data_string_z, "z = %4f", data[2]);
 
   
-  f3d_lcd_drawString(30,10,data_string_x, BLUE, BLACK);   
-  f3d_lcd_drawString(30,20,data_string_y, YELLOW, BLACK);   
-  f3d_lcd_drawString(30,30,data_string_z, RED, BLACK);   
+  f3d_lcd_drawString(30,10,data_string_x, RED, BLACK);   
+  f3d_lcd_drawString(30,20,data_string_y, GREEN, BLACK);   
+  f3d_lcd_drawString(30,30,data_string_z, BLUE, BLACK);   
   
   //bar info by gleb
   
@@ -62,34 +62,33 @@ int main(void) {
   //don't forget to have a threshold for gyrodata.
   //
 
-  int x = data[0]*2.5; 
-  int y = data[1]*2.5; 
-  int z = data[2]*2.5; 
+  int x = data[0]; 
+  int y = data[1]; 
+  int z = data[2]; 
 
-  int inc, size; 
+  int inc, size;  
 
   for(inc = 69; inc < 98; inc++){
     if(x>=0){
-      for(size = 64; size < x+64; size++) {
-	f3d_lcd_drawPixel(size,inc,BLUE);
+      for(size = 64; size < x+64  && size <= 128 ; size++) {
+	f3d_lcd_drawPixel(size,inc,RED);
       }
     }else{
-      for(size = 64; size > x+64; size--) {
-	f3d_lcd_drawPixel(size,inc,BLUE);
+      for(size = 64; size > x+64  && size >= 0; size--) {
+	f3d_lcd_drawPixel(size,inc,RED);
       }
     }
-
   }
 
 
   for(inc = 98; inc < 127; inc++){
     if(y>=0){
-      for(size = 64; size < y+64; size++) {
-	f3d_lcd_drawPixel(size,inc,YELLOW);
+      for(size = 64; size < y+64  && size <= 128; size++) {
+	f3d_lcd_drawPixel(size,inc,GREEN);
       }
     }else{
-      for(size = 64; size > y+64; size--) {
-	f3d_lcd_drawPixel(size,inc,YELLOW);
+      for(size = 64; size > y+64  && size >= 0; size--) {
+	f3d_lcd_drawPixel(size,inc,GREEN);
       }
     }
   }
@@ -97,17 +96,18 @@ int main(void) {
 
   for(inc = 127; inc < 160; inc++) {
     if(z>=0){
-      for(size = 64; size < z+64; size++) {
-	f3d_lcd_drawPixel(size,inc,RED);
+      for(size = 64; size < z+64   && size <= 128; size++) {
+	f3d_lcd_drawPixel(size,inc,BLUE);
       }
     }else{
       for(size = 64; size > z+64 && size >= 0; size--) {
-	f3d_lcd_drawPixel(size,inc,RED);
+	f3d_lcd_drawPixel(size,inc,BLUE);
       }
 
     }
 
   }
+ 
 
   int row, col;
 
@@ -118,7 +118,6 @@ int main(void) {
     }
   }
 
-  
 
   }//end of while loop
 

@@ -1,3 +1,13 @@
+/* main.c --- 
+ * 
+ * Filename: main.c
+ * Description: Main method for code
+ * Author: Robert
+ * Maintainer: 
+ * Created: Thu Feb 25 2016
+ */
+
+
 /* f3d_lcd_sd.c ---
 *
 * Filename: f3d_lcd_sd.c
