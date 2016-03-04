@@ -1,0 +1,12 @@
+
+
+
+
+
+Q4)
+Because the accelerometer measurements cannot distinguish earth’s gravity from linear
+acceleration or angular acceleration, fast motion causes pitch/roll calculation error which
+then directly introduces an error to the heading calculation. In most cases, the fast motion
+doesn't last long and the device goes back to a stationary position. So the heading accuracy
+in an electronic compass means static accuracy when the device is still or without
+acceleration.
