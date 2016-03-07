@@ -60,28 +60,21 @@ f3d_uart_init();
 
   while(1) {
   
-
     f3d_accel_read(accel_data); 
     f3d_mag_read(mag_data);
-
 
     float x_a = accel_data[0];
     float y_a = accel_data[1];
     float z_a = accel_data[2];
 
-
-
-    pitch = atanf( x_a / sqrt(y_a*y_a + z_a*z_a ) );
-    roll  = atanf( y_a / sqrt(x_a*x_a  + z_a*z_a) );
+    pitch = atanf( x_a / sqrt(y_a * y_a + z_a * z_a));
+    roll  = atanf( y_a / sqrt(x_a * x_a + z_a * z_a));
  
+    sprintf( string_pitch, "Pitch = %f", pitch);
+    sprintf( string_roll, "Roll = %f",   roll); 
 
-    sprintf(string_pitch,"Pitch = %f",pitch);
-    sprintf(string_roll,"Roll = %f", roll); 
-
-    
     f3d_lcd_drawString(10,60, string_roll, WHITE, BLACK);
     f3d_lcd_drawString(10,70, string_pitch, WHITE, BLACK);
-
 
     float x_m = mag_data[0];
     float y_m = mag_data[1];
@@ -89,7 +82,7 @@ f3d_uart_init();
  
     /* float M_x = (x_m*cos(pitch) + z_m*sin(pitch)); */
     /* float M_y = (x_m*sin(roll)*sin(pitch) + y_m*cos(roll) + z_m*sin(roll)*cos(pitch)); */
-    /* float M_z = -(x_m*cos(roll)*sin(pitch) + y_m*sin(roll) + z_m*cos(roll)*cos(pitch)); */
+    /* float M_z = -(x_m*cos(roll)*sin(pitch) + y_m*sin(roll) + z_m*cos(roll)*cos(pitch)); *
     
     /* if(M_x > 0 && M_y >= 0){ */
     /* heading = atan(M_y/M_x); */
@@ -106,34 +99,25 @@ f3d_uart_init();
     /* } */
 
     float Xh = x_m * cos(pitch) + z_m * sin(pitch);
-      
     float Yh = x_m * sin(roll)*sin(pitch) + y_m * cos(roll) - z_m * sin(roll) * cos(pitch);
 
     heading = atan(Yh/Xh);
 
     //Equations 2;
     // page 7 on the LSM 303DLH for tilt compensate 
-
-    
     //Xh and Yh of equations 2 you can get heading = arctan2(Yh, Xh)*180/M_PI + 
     
     sprintf(string_heading,"Heading is %f", heading);
-    
+    f3d_lcd_drawString(10, 120, string_heading, WHITE, BLACK);
 
-    f3d_lcd_drawString(10,120, string_heading, WHITE,BLACK);
-
-    sprintf(string_heading_degrees,"Heading in degrees is %f", (heading * (180/M_PI) ) ); 
- 
-    f3d_lcd_drawString(10,130, string_heading_degrees, WHITE,BLACK); 
-
-    
+    sprintf(string_heading_degrees,"Heading in degrees is %f", (heading * (180 / M_PI) )); 
+    f3d_lcd_drawString(10, 130, string_heading_degrees, WHITE, BLACK); 
   }
 }
 
 /*
   unsigned char string_mag_data[50];
   unsigned char string_accel_data[50];
-  
   
   while(1) {
   
