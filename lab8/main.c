@@ -24,11 +24,11 @@
 int main(void) {
 
 
+  // Set up your inits before you go ahead
   f3d_uart_init();
   delay(10);
   f3d_lcd_init();
   delay(10);
-  // Set up your inits before you go ahead
   f3d_i2c1_init();
   delay(10); 
   f3d_accel_init();
