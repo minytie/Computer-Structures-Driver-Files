@@ -4,8 +4,9 @@ Robert Mulligan
 
 Q1) The accelerometer/magnetometer comes pre-wired on the STM board. Open up the the Data Sheet and find the page with the Pin Descriptions. How many pins does it have? List the pins and their names. Next find the electrical specifications under the Electrical Characteristics section. How many volts (Vdd) are required to power the accelerometer/magnetometer? The accelerometer/magnetometer is sitting somewhere on the STM board. Try to find it and describe where it is.
 
-
-
+It has 14 pins
+2.5 Volts required
+the Accelerometer is sitting to the left of the audio amplifier below the middle USB and above the pins. 
 
 
 Q2) Why do we write to the accelerometer/magnetometer before we can read from them? What are the following lines of code doing? HINT: LOOK AT THE COMMENTS
