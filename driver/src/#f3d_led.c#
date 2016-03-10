@@ -103,16 +103,13 @@ void f3d_led_on(int led) {
     GPIOE->BSRR = GPIO_Pin_8;
     break;
 
-
   case 2:
     GPIOE->BSRR = GPIO_Pin_15;
     break;
 
-
   case 3:
     GPIOE->BSRR = GPIO_Pin_14;
     break;
-
 
   case 4:
     GPIOE->BSRR = GPIO_Pin_13;
