@@ -1,26 +1,25 @@
 /* main.c --- 
  * 
  * Filename: main.c
- * Description: 
- * Author: Bryce Himebaugh
+ * Description: Main Method
+ * Author: Robert Mulligan
  * Maintainer: 
- * Created: Wed Oct  7 14:14:25 2015
+ * Created:  March 20 2016
  * Last-Updated: 
- *           By: 
- *     Update #: 0
- * Keywords: 
- * Compatibility: 
+ *           By: Robert Mulligan
+ *     Update #: 
+ * Keywords: Main Method
  * 
  */
 
 /* Commentary: 
- * 
+ *  None
  * 
  * 
  */
 
 /* Change log:
- * 
+ *  None
  * 
  */
 
@@ -43,12 +42,52 @@
 uint32_t reg[16];
 uint32_t psr;
 
-int main(void) {
+int main(int argc, unsigned long long a, unsigned long long b) {
+
+
+  /* const char *hexstring = argv[0]; */
+  /* const char *hexstring2=argv[1]; */
+  /* unsigned long long  number = (long long) strtol(hexstring, NULL, 16); */
+  /* unsigned long long thing_to_write = (long long) strtol(hexstring2,NULL,16); */
+  
+  
+  /* unsigned long long a;  */
+  /* unsigned long long b; */ 
+  
+  /* a = argv[0]; */
+  /* b = argv[1]; */
+
+  printf("printing a: %d\n  printing b: %d\n", &a, &b); 
+
+  uint32_t a_1 = ((a & 0xFFFFFFFF00000000) >> 32);
+  uint32_t a_2 = (a & 0xFFFFFFFF);
+  
+  uint32_t b_1 = ((b & 0xFFFFFFFF00000000) >> 32);
+  uint32_t b_2 = (b & 0xFFFFFFFF);
+
+  //  printf("%lu and %lu \n", y, w);
+  // int64_t f = adcs(adds(x, z), adds(y, w));
+  reg[0] = a_1;
+  reg[1] = a_2;
+  reg[2] = b_1;
+  reg[3] = b_2;
+  adds(1,3);
+  adcs(0,2);
+
+  unsigned long long ans = ( (reg[0] >> 32) | reg[1]); // & 0x0000000000000000);
+  printf("%x\n", ans);
+  
+
+  
   // Argument to test_instructions can be ALL to run all of tests or a specific
   // instruction can be tested by passing the name. 
   // ADCS, ADDS, SUBS, ANDS, BICS, LSLS, ASRS
   // To run the instruction tests for all of the instructions, pass ALL
-  test_instructions(ANDS);
+  /* test_instructions(ANDS); */
+   test_instructions(ADCS); 
+   test_instructions(ADDS); 
+   test_instructions(BICS); 
+   test_instructions(LSLS);
   return (0);
 }
 
@@ -67,13 +106,42 @@ void ands(int rn, int rm) {
   // Zero Flag 
   if (!reg[rn]) SET_Z;
   else CLEAR_Z;
-}
+ }
 
 void adcs(int rn, int rm) {
   // Include your code to emulate the "adc" instruction:
   // adcs rn, rm
   // rn = index where operand1 is located in reg[], also destination for result
   // rm = index where operand2 is located in reg[]
+  // reg[rn] &= reg[rm];
+  int c = reg[rn];
+  if (psr == 0x20000000) reg[rn] += reg[rm] + 1;
+  else reg[rn] += reg[rm];
+
+  int i = 0;
+
+  int xrn = reg[rn];
+  int xrm = reg[rm];
+  
+  //zero
+  psr = 0;
+  if (reg[rn] == 0) {
+    if (c > reg[rn]) {
+      SET_C;
+      SET_Z;
+    }
+    else { SET_Z; }
+  }
+  
+  //negative
+  if (reg[rn] & 0x80000000) { SET_N; }
+
+  //carry
+  if(c > reg[rn]) { SET_C; }
+
+  //overflow
+  if (c > 0 && xrm > 0 && xrn < 0){ SET_V; }
+
 }
 
 void adds(int rn, int rm) {
@@ -81,6 +149,38 @@ void adds(int rn, int rm) {
   // adds rn, rm
   // rn = index where operand1 is located in reg[], also destination for result
   // rm = index where operand2 is located in reg[]
+  //reg[rn] &= reg[rm];
+  int c = reg[rn];
+  reg[rn] += reg[rm];
+
+  psr = 0;
+
+  //zero
+  if (reg[rn] == 0) {
+    if (c > reg[rn]) {
+      SET_C;
+      SET_Z;
+    }
+    else
+      SET_Z;
+  }
+  
+  //negative
+  if (reg[rn] & 0x80000000) {
+    SET_N;
+  }
+
+  //carry
+  if(c > reg[rn]) {
+    SET_C;
+  }
+
+  //overflow
+  int xrn = reg[rn];
+  int xrm = reg[rm];
+  if (c > 0 && xrm > 0)
+    if (xrn < 0)
+      SET_V;
 }
 
 void bics(int rn, int rm) {
@@ -88,6 +188,159 @@ void bics(int rn, int rm) {
   // subs rn, rm
   // rn = index where operand1 is located in reg[], also destination for result
   // rm = index where operand2 is located in reg[]
+  //reg[rn] &= reg[rm];
+
+  int xrn = reg[rn];
+  int xrm = reg[rm];
+
+  int xrn_c = xrn;
+  int xrm_c = xrm;
+
+  int xrnarr[32];
+  int xrmarr[32];
+
+  int ii = 0;
+
+  for (ii; ii < 32; ii++) {
+    xrnarr[ii] = 0;
+    xrmarr[ii] = 0;
+  }
+
+  /*
+  ii = 0;
+  for (ii; ii < 32; ii++) {
+    printf(" %d", xrnarr[ii]);
+  }
+  printf("\n");
+  ii = 0;
+  for (ii; ii < 32; ii++) {
+    printf(" %d", xrmarr[ii]);
+  }
+  printf("\n");
+  */
+
+  //Testing
+  /*
+  printf("------------- %d", xrn);
+  //printf("\n");
+  printf("------------- %d", xrm);
+  printf("\n");
+  */
+
+  //rn
+  if (xrn_c >= 0) {
+    int i = 31;
+    for (i; i >= 0; i--) {
+      xrnarr[i] = xrn_c % 2;
+      xrn_c = xrn_c / 2;
+    }
+  }
+  else {
+    int i = 31;
+    xrn_c = -1 * xrn_c;
+    xrn_c = xrn_c - 1;
+    for(i; i >= 0; i--) {
+      xrnarr[i] = xrn_c % 2;
+      xrn_c = xrn_c / 2;
+    }
+    i = 0;
+    for(i; i < 32; i++) {
+      if (xrnarr[i] == 0)
+	xrnarr[i] = 1;
+      else
+	xrnarr[i] = 0;
+    }
+  }
+
+    //rm
+    if (xrm_c >= 0) {
+      int i = 31;
+      for (i; i >= 0; i--) {
+	xrmarr[i] = xrm_c % 2;
+	xrm_c = xrm_c / 2;
+      }
+    }
+    else {
+      int i = 31;
+      xrm_c = -1 * xrm_c;
+      xrm_c = xrm_c - 1;
+      for(i; i >= 0; i--) {
+	xrmarr[i] = xrm_c % 2;
+	xrm_c = xrm_c / 2;
+      }
+      i = 0;
+      for(i; i < 32; i++) {
+	if (xrmarr[i] == 0)
+	  xrmarr[i] = 1;
+	else
+	  xrmarr[i] = 0;
+      }
+    }
+
+    //Test
+    /*
+    ii = 0;
+    for (ii; ii < 32; ii++) {
+      printf(" %d", xrnarr[ii]);
+    }
+    printf("\n");
+    ii = 0;
+    for (ii; ii < 32; ii++) {
+      printf(" %d", xrmarr[ii]);
+    }
+    printf("\n");
+    */
+
+    int result[32];
+
+    int i = 0;
+    for (i; i < 32; i++) {
+      if((xrnarr[i] == 1) && (xrmarr[i] == 0))
+	result[i] = 1;
+      else
+	result[i] = 0;
+    }
+
+    //Test
+    /*
+    ii = 0;
+    for (ii; ii < 32; ii++) {
+      printf(" %d", result[ii]);
+    }
+    printf("\n");
+    */
+
+    int re = 0;
+    int pow = 1;
+    i = 31;
+    for (i; i >= 0; i--) {
+      re = re + pow * result[i];
+      pow = pow * 2;
+    }
+
+    //Test
+    //printf("%d\n", re);
+
+    reg[rn] = re;
+
+    int c = reg[rn];
+
+    //psr = 0;
+
+    //negative
+    if (reg[rn] & 0x80000000) {
+      SET_N;
+    }
+
+    //zero
+    if (reg[rn] == 0) {
+      if (c > reg[rn]) {
+	SET_C;
+	SET_Z;
+      }
+      else
+	SET_Z;
+    }
 }
 
 void lsls(int rn, int rm) {
@@ -95,6 +348,89 @@ void lsls(int rn, int rm) {
   // subs rn, rm
   // rn = index where operand1 is located in reg[], also destination for result
   // rm = index where operand2 is located in reg[]
+  //reg[rn] &= reg[rm];
+
+  int xrn = reg[rn];
+  int xrm = reg[rm];
+
+  int c = reg[rn];
+
+  //Test
+  /*
+  printf("-- %x ", xrn);
+  printf("-- %d\n", xrn);
+  printf("-- %x ", xrm);
+  printf("-- %d\n", xrm);
+  */
+
+  int x = 0;
+  int rem = 0;
+  int cc = 0;
+  int ccc = 0;
+
+  //positive
+  if (xrm > 0) {
+    if (xrm % 32 == 0) {
+      if (xrm == 32)
+	x = 0;
+      else if (xrm <= 128) {
+	ccc = 1;
+	x = 0;
+      }
+      else
+	x = reg[rn];
+    }
+    else {
+      rem = xrm % 32;
+      if (rem == 31) {
+	ccc = 1;
+	x = 0;
+      }
+      else {
+	x = reg[rn] << rem;
+      }
+    }
+    
+  }
+  //negative
+  else {
+    if (xrm == -2147483648) {
+      x = reg[rn];
+      //printf("AAAAAAAAAA");
+    }
+    else {
+    x = 0;
+    ccc = 1;
+    }
+  }
+  //Test
+  //printf("%x\n", x);
+
+  reg[rn] = x;
+
+  psr = 0;
+
+  //zero
+  if (reg[rn] == 0) {
+    if (c > reg[rn]) {
+      if (ccc == 0)
+	SET_C;
+      SET_Z;
+    }
+    else
+      SET_Z;
+  }
+
+  //negative
+  if (reg[rn] & 0x80000000) {
+    SET_N;
+  }
+
+  //carry
+  if((cc == 1 || c > reg[rn]) && ccc == 0) {
+    SET_C;
+  }
+
 }
 
 void asrs(int rn, int rm) {
@@ -102,6 +438,14 @@ void asrs(int rn, int rm) {
   // subs rn, rm
   // rn = index where operand1 is located in reg[], also destination for result
   // rm = index where operand2 is located in reg[]
+  reg[rn] &= reg[rm];
+
+
+
 }
+
+
+
+
 
 /* main.c ends here */

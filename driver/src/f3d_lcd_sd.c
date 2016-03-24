@@ -1,48 +1,53 @@
-/* main.c --- 
+/* f3d_lcd_sd.c --- 
  * 
- * Filename: main.c
- * Description: Main method for code
- * Author: Robert
+ * Filename: f3d_lcd_sd.c
+ * Description: 
+ * Author: Bryce Himebaugh
  * Maintainer: 
- * Created: Thu Feb 25 2016
+ * Created: Thu Oct 24 05:18:36 2013
+ * Last-Updated: 
+ *           By: 
+ *     Update #: 0
+ * Keywords: 
+ * Compatibility: 
+ * 
  */
 
-
-/* f3d_lcd_sd.c ---
-*
-* Filename: f3d_lcd_sd.c
-* Description:
-* Author: Bryce Himebaugh
-* Maintainer:
-* Created: Thu Oct 24 05:18:36 2013
-* Last-Updated:
-* By:
-* Update #: 0
-* Keywords:
-* Compatibility:
-*
-*/
-
-/* Commentary:
-*
-*
-*
-*/
+/* Commentary: 
+ * 
+ * 
+ * 
+ */
 
 /* Change log:
-*
-*
-*/
+ * 
+ * 
+ */
 
-/* Copyright (c) 2004-2007 The Trustees of Indiana University and
-* Indiana University Research and Technology Corporation.
-*
-* All rights reserved.
-*
-* Additional copyrights may follow
-*/
+/* Copyright (c) 2004-2007 The Trustees of Indiana University and 
+ * Indiana University Research and Technology Corporation.  
+ * 
+ * All rights reserved. 
+ * 
+ * Additional copyrights may follow 
+ */
 
 /* Code: */
+
+/**********************************************************
+*   Author: Kyle Dijkstra
+---
+*   Date Created: 2/25/16
+---
+*   Last Modified by: Kyle Dijkstra
+---
+*   Date Last Modified: 2/26/16
+---
+*   Assignment: Lab7
+---
+*/
+
+
 #include <f3d_lcd_sd.h>
 #include <f3d_delay.h>
 #include <glcdfont.h>
@@ -50,44 +55,29 @@
 static uint8_t madctlcurrent = MADVAL(MADCTLGRAPHICS);
 
 void f3d_lcd_sd_interface_init(void) {
- /* vvvvvvvvvvv pin initialization for the LCD goes here vvvvvvvvvv*/
+ /* vvvvvvvvvvv pin initialization for the LCD goes here vvvvvvvvvv*/ 
   
-  // intialize the homework
-  GPIO_InitTypeDef GPIO_InitStructure;
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOB, ENABLE);
-
-  // set the pins
-  GPIO_StructInit(&GPIO_InitStructure);  
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
-
-  // setting parameters
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  GPIO_Init(GPIOB, &GPIO_InitStructure);
-  
-
-  // configure the AF pins
-  GPIO_PinAFConfig(GPIOB,13,GPIO_AF_5);
-  GPIO_PinAFConfig(GPIOB,14,GPIO_AF_5);
-  GPIO_PinAFConfig(GPIOB,15,GPIO_AF_5);
-
-  // For pins 9-12
-  GPIO_StructInit(&GPIO_InitStructure);  
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12;
-
-  // set parameters for the MODE_OUT
+  GPIO_InitTypeDef GPIO_InitStructure;
+  GPIO_StructInit(&GPIO_InitStructure);
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9|GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-
-  // init before config
   GPIO_Init(GPIOB, &GPIO_InitStructure);
-
-
-
+  
+  GPIO_StructInit(&GPIO_InitStructure);
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_OType =  GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_Init(GPIOB,&GPIO_InitStructure);
+  GPIO_PinAFConfig(GPIOB,13,GPIO_AF_5);
+  GPIO_PinAFConfig(GPIOB,14,GPIO_AF_5);
+  GPIO_PinAFConfig(GPIOB,15,GPIO_AF_5);
+  
   /* ^^^^^^^^^^^ pin initialization for the LCD goes here ^^^^^^^^^^ */
  
   // Section 4.1 SPI2 configuration
@@ -107,7 +97,7 @@ void f3d_lcd_sd_interface_init(void) {
   SPI_RxFIFOThresholdConfig(SPI2, SPI_RxFIFOThreshold_QF);
   SPI_Cmd(SPI2, ENABLE);
   
-}
+} 
 
 
 struct lcd_cmdBuf {
@@ -171,13 +161,13 @@ static const struct lcd_cmdBuf initializers[] = {
 void f3d_lcd_init(void) {
   const struct lcd_cmdBuf *cmd;
 
-  f3d_lcd_sd_interface_init(); // Setup SPI2 Link and configure GPIO pins
-  LCD_BKL_ON(); // Enable Backlight
+  f3d_lcd_sd_interface_init();    // Setup SPI2 Link and configure GPIO pins
+  LCD_BKL_ON();                   // Enable Backlight
 
   // Make sure that the chip select and reset lines are deasserted
-  LCD_CS_DEASSERT(); // Deassert Chip Select
+  LCD_CS_DEASSERT();              // Deassert Chip Select
 
-  LCD_RESET_DEASSERT();
+  LCD_RESET_DEASSERT();           
   delay(100);
   LCD_RESET_ASSERT();
   delay(100);
@@ -203,7 +193,7 @@ static void LcdWrite(char dc,const char *data,int nbytes) {
 }
 
 static void LcdWrite16(char dc,const uint16_t *data,int cnt) {
-  GPIO_WriteBit(LCD_PORT,GPIO_PIN_DC,dc);
+  GPIO_WriteBit(LCD_PORT,GPIO_PIN_DC,dc); 
   GPIO_ResetBits(LCD_PORT,GPIO_PIN_SCE);
   spiReadWrite16(SPILCD,0,data,cnt,LCDSPEED);
   GPIO_SetBits(LCD_PORT,GPIO_PIN_SCE);
@@ -217,7 +207,7 @@ int spiReadWrite(SPI_TypeDef *SPIx,uint8_t *rbuf, const uint8_t *tbuf, int cnt, 
   for (i = 0; i < cnt; i++){
     if (tbuf) {
       SPI_SendData8(SPIx,*tbuf++);
-    }
+    } 
     else {
       SPI_SendData8(SPIx,0xff);
     }
@@ -225,7 +215,7 @@ int spiReadWrite(SPI_TypeDef *SPIx,uint8_t *rbuf, const uint8_t *tbuf, int cnt, 
     while (SPI_I2S_GetFlagStatus(SPIx,SPI_I2S_FLAG_RXNE) == RESET);
     if (rbuf) {
       *rbuf++ = SPI_ReceiveData8(SPIx);
-    }
+    } 
     else {
       SPI_ReceiveData8(SPIx);
     }
@@ -241,16 +231,16 @@ int spiReadWrite16(SPI_TypeDef *SPIx,uint8_t *rbuf, const uint16_t *tbuf, int cn
 
   for (i = 0; i < cnt; i++){
     if (tbuf) {
-      // printf("data=0x%4x\n\r",*tbuf);
+      //      printf("data=0x%4x\n\r",*tbuf);
       SPI_I2S_SendData16(SPIx,*tbuf++);
-    }
+    } 
     else {
       SPI_I2S_SendData16(SPIx,0xffff);
     }
     while (SPI_I2S_GetFlagStatus(SPIx,SPI_I2S_FLAG_RXNE) == RESET);
     if (rbuf) {
       *rbuf++ = SPI_I2S_ReceiveData16(SPIx);
-    }
+    } 
     else {
       SPI_I2S_ReceiveData16(SPIx);
     }
@@ -284,6 +274,17 @@ static void f3d_lcd_writeCmd(uint8_t c) {
   LcdWrite(LCD_C,&c,1);
 }
 
+/* Salae Logic step 9.1
+void f3d_lcd_fillScreen2(uint16_t color) {
+  uint8_t y;
+  uint16_t x[ST7735_width];
+  for (y = 0; y < ST7735_width; y++) x[y] = color;
+  f3d_lcd_setAddrWindow (0,0,ST7735_width-1,ST7735_height-1,MADCTLGRAPHICS);
+  for (y=0;y<ST7735_height; y++) {
+    f3d_lcd_pushColor(x,ST7735_width);
+  }
+}
+
 void f3d_lcd_fillScreen(uint16_t color) {
   uint8_t x,y;
   f3d_lcd_setAddrWindow (0,0,ST7735_width-1,ST7735_height-1,MADCTLGRAPHICS);
@@ -293,9 +294,22 @@ void f3d_lcd_fillScreen(uint16_t color) {
     }
   }
 }
+*/
+
+void f3d_lcd_drawRectangle(uint16_t color, uint8_t x1, uint8_t y1, uint8_t x2,  uint8_t y2){
+  uint8_t width = x2-x1;
+  uint8_t height = y2-y1;
+  uint8_t y;
+  uint16_t x[width];
+  for (y = 0; y < width; y++) x[y] = color;
+  f3d_lcd_setAddrWindow (x1, y1, x2, y2, MADCTLGRAPHICS);
+  for (y = 0;y < height; y++) {
+    f3d_lcd_pushColor(x, width);
+  }
+}
 
 
-void f3d_lcd_fillScreen2(uint16_t color) {
+void f3d_lcd_fillScreen(uint16_t color) {
   uint8_t y;
   uint16_t x[ST7735_width];
   for (y = 0; y < ST7735_width; y++) x[y] = color;
@@ -314,7 +328,7 @@ void f3d_lcd_drawPixel(uint8_t x, uint8_t y, uint16_t color) {
 void f3d_lcd_drawChar(uint8_t x, uint8_t y, unsigned char c, uint16_t color, uint16_t background_color) {
   int i, j;
   for (i = 0; i < 5; i++) {
-    for (j = 0; j < 8; j++){
+    for (j = 0; j < 8; j++){ 
       f3d_lcd_drawPixel(x+i,y+j, background_color);
     }
   }
@@ -322,7 +336,7 @@ void f3d_lcd_drawChar(uint8_t x, uint8_t y, unsigned char c, uint16_t color, uin
     uint8_t byte = ASCII[c*5 + i];
     for (j = 0; j < 8; j++){
       if (byte & (1)) {
-f3d_lcd_drawPixel(x+i,y+j, color);
+	f3d_lcd_drawPixel(x+i,y+j, color);
       }
       byte >>= 1;
     }
@@ -339,3 +353,5 @@ void f3d_lcd_drawString(uint8_t x, uint8_t y, char *c, uint16_t color, uint16_t 
     }
   }
 }
+
+/* f3d_lcd_sd.c ends here */
