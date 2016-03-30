@@ -13,7 +13,7 @@
  */
 
 /* Commentary: 
- *  None
+ *  	I worked with James Mantz - Some of our functions will be similar
  * 
  * 
  */
@@ -41,6 +41,8 @@
 
 uint32_t reg[16];
 uint32_t psr;
+
+int i = 0; // for use in for loops
 
 int main(int argc, unsigned long long a, unsigned long long b) {
 
@@ -118,15 +120,12 @@ void adcs(int rn, int rm) {
   if (psr == 0x20000000) reg[rn] += reg[rm] + 1;
   else reg[rn] += reg[rm];
 
-  int i = 0;
-
   int xrn = reg[rn];
   int xrm = reg[rm];
   
   //zero
   psr = 0;
-  if (reg[rn] == 0) {
-    if (c > reg[rn]) {
+  if (reg[rn] == 0 && c > reg[rn]) {
       SET_C;
       SET_Z;
     }
@@ -161,8 +160,7 @@ void adds(int rn, int rm) {
       SET_C;
       SET_Z;
     }
-    else
-      SET_Z;
+    else { SET_Z; }
   }
   
   //negative
@@ -178,9 +176,9 @@ void adds(int rn, int rm) {
   //overflow
   int xrn = reg[rn];
   int xrm = reg[rm];
-  if (c > 0 && xrm > 0)
-    if (xrn < 0)
+  if (c > 0 && xrm > 0 && xrn < 0){
       SET_V;
+	}
 }
 
 void bics(int rn, int rm) {
@@ -199,47 +197,24 @@ void bics(int rn, int rm) {
   int xrnarr[32];
   int xrmarr[32];
 
-  int ii = 0;
+ 
 
-  for (ii; ii < 32; ii++) {
-    xrnarr[ii] = 0;
-    xrmarr[ii] = 0;
+  for (i = 0; i < 32; i++) {
+    xrnarr[i] = 0;
+    xrmarr[i] = 0;
   }
 
-  /*
-  ii = 0;
-  for (ii; ii < 32; ii++) {
-    printf(" %d", xrnarr[ii]);
-  }
-  printf("\n");
-  ii = 0;
-  for (ii; ii < 32; ii++) {
-    printf(" %d", xrmarr[ii]);
-  }
-  printf("\n");
-  */
-
-  //Testing
-  /*
-  printf("------------- %d", xrn);
-  //printf("\n");
-  printf("------------- %d", xrm);
-  printf("\n");
-  */
-
-  //rn
+ 
   if (xrn_c >= 0) {
-    int i = 31;
-    for (i; i >= 0; i--) {
+    for (i = 31; i >= 0; i--) {
       xrnarr[i] = xrn_c % 2;
       xrn_c = xrn_c / 2;
     }
   }
   else {
-    int i = 31;
     xrn_c = -1 * xrn_c;
     xrn_c = xrn_c - 1;
-    for(i; i >= 0; i--) {
+    for(i = 31; i >= 0; i--) {
       xrnarr[i] = xrn_c % 2;
       xrn_c = xrn_c / 2;
     }
@@ -254,17 +229,16 @@ void bics(int rn, int rm) {
 
     //rm
     if (xrm_c >= 0) {
-      int i = 31;
-      for (i; i >= 0; i--) {
+      for (i = 31; i >= 0; i--) {
 	xrmarr[i] = xrm_c % 2;
 	xrm_c = xrm_c / 2;
       }
     }
     else {
-      int i = 31;
+ 
       xrm_c = -1 * xrm_c;
       xrm_c = xrm_c - 1;
-      for(i; i >= 0; i--) {
+      for(i = 31; i >= 0; i--) {
 	xrmarr[i] = xrm_c % 2;
 	xrm_c = xrm_c / 2;
       }
@@ -277,38 +251,15 @@ void bics(int rn, int rm) {
       }
     }
 
-    //Test
-    /*
-    ii = 0;
-    for (ii; ii < 32; ii++) {
-      printf(" %d", xrnarr[ii]);
-    }
-    printf("\n");
-    ii = 0;
-    for (ii; ii < 32; ii++) {
-      printf(" %d", xrmarr[ii]);
-    }
-    printf("\n");
-    */
 
     int result[32];
 
-    int i = 0;
-    for (i; i < 32; i++) {
+    for (i = 0; i < 32; i++) {
       if((xrnarr[i] == 1) && (xrmarr[i] == 0))
 	result[i] = 1;
       else
 	result[i] = 0;
     }
-
-    //Test
-    /*
-    ii = 0;
-    for (ii; ii < 32; ii++) {
-      printf(" %d", result[ii]);
-    }
-    printf("\n");
-    */
 
     int re = 0;
     int pow = 1;
@@ -318,14 +269,9 @@ void bics(int rn, int rm) {
       pow = pow * 2;
     }
 
-    //Test
-    //printf("%d\n", re);
-
     reg[rn] = re;
-
     int c = reg[rn];
 
-    //psr = 0;
 
     //negative
     if (reg[rn] & 0x80000000) {
@@ -355,13 +301,6 @@ void lsls(int rn, int rm) {
 
   int c = reg[rn];
 
-  //Test
-  /*
-  printf("-- %x ", xrn);
-  printf("-- %d\n", xrn);
-  printf("-- %x ", xrm);
-  printf("-- %d\n", xrm);
-  */
 
   int x = 0;
   int rem = 0;
