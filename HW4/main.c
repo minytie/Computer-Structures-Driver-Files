@@ -85,12 +85,13 @@ int main(int argc, unsigned long long a, unsigned long long b) {
   // instruction can be tested by passing the name. 
   // ADCS, ADDS, SUBS, ANDS, BICS, LSLS, ASRS
   // To run the instruction tests for all of the instructions, pass ALL
-  /* test_instructions(ANDS); */
+   test_instructions(ANDS); 
    test_instructions(ADCS); 
    test_instructions(ADDS); 
    test_instructions(BICS); 
    test_instructions(LSLS);
-  return (0);
+   test_instructions(ASRS); 
+ return (0);
 }
 
 void ands(int rn, int rm) {
