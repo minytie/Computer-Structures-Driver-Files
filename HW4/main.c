@@ -130,7 +130,7 @@ void adcs(int rn, int rm) {
       SET_Z;
     }
     else { SET_Z; }
-  }
+  
   
   //negative
   if (reg[rn] & 0x80000000) { SET_N; }
