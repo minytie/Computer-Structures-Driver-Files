@@ -298,7 +298,7 @@ void lsls(int rn, int rm) {
       if (xrm == 32)
 	x = 0;
       else if (xrm <= 128) {
-	ccc = 1;
+	y = 1;
 	x = 0;
       }
       else
@@ -323,7 +323,7 @@ void lsls(int rn, int rm) {
     }
     else {
     x = 0;
-    ccc = 1;
+    y = 1;
     }
   }
   //Test
