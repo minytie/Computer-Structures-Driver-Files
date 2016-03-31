@@ -47,17 +47,7 @@ int i = 0; // for use in for loops
 int main(int argc, unsigned long long a, unsigned long long b) {
 
 
-  /* const char *hexstring = argv[0]; */
-  /* const char *hexstring2=argv[1]; */
-  /* unsigned long long  number = (long long) strtol(hexstring, NULL, 16); */
-  /* unsigned long long thing_to_write = (long long) strtol(hexstring2,NULL,16); */
-  
-  
-  /* unsigned long long a;  */
-  /* unsigned long long b; */ 
-  
-  /* a = argv[0]; */
-  /* b = argv[1]; */
+
 
   printf("printing a: %d\n  printing b: %d\n", &a, &b); 
 
@@ -67,8 +57,7 @@ int main(int argc, unsigned long long a, unsigned long long b) {
   uint32_t b_1 = ((b & 0xFFFFFFFF00000000) >> 32);
   uint32_t b_2 = (b & 0xFFFFFFFF);
 
-  //  printf("%lu and %lu \n", y, w);
-  // int64_t f = adcs(adds(x, z), adds(y, w));
+
   reg[0] = a_1;
   reg[1] = a_2;
   reg[2] = b_1;
@@ -252,9 +241,7 @@ void bics(int rn, int rm) {
       }
     }
 
-
     int result[32];
-
     for (i = 0; i < 32; i++) {
       if((xrnarr[i] == 1) && (xrmarr[i] == 0))
 	result[i] = 1;
@@ -285,9 +272,8 @@ void bics(int rn, int rm) {
 	SET_C;
 	SET_Z;
       }
-      else
-	SET_Z;
-    }
+      else { SET_Z; } 
+}
 }
 
 void lsls(int rn, int rm) {
@@ -301,12 +287,10 @@ void lsls(int rn, int rm) {
   int xrm = reg[rm];
 
   int c = reg[rn];
-
-
   int x = 0;
+  int b = 0; 
   int rem = 0;
-  int cc = 0;
-  int ccc = 0;
+  int y = 0;
 
   //positive
   if (xrm > 0) {
@@ -323,7 +307,7 @@ void lsls(int rn, int rm) {
     else {
       rem = xrm % 32;
       if (rem == 31) {
-	ccc = 1;
+	y = 1;
 	x = 0;
       }
       else {
@@ -336,7 +320,6 @@ void lsls(int rn, int rm) {
   else {
     if (xrm == -2147483648) {
       x = reg[rn];
-      //printf("AAAAAAAAAA");
     }
     else {
     x = 0;
@@ -353,7 +336,7 @@ void lsls(int rn, int rm) {
   //zero
   if (reg[rn] == 0) {
     if (c > reg[rn]) {
-      if (ccc == 0)
+      if (y == 0)
 	SET_C;
       SET_Z;
     }
@@ -367,7 +350,7 @@ void lsls(int rn, int rm) {
   }
 
   //carry
-  if((cc == 1 || c > reg[rn]) && ccc == 0) {
+  if((b == 1 || c > reg[rn]) && y == 0) {
     SET_C;
   }
 
