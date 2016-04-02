@@ -71,7 +71,7 @@ int main(void) {
   f_mount(0, &Fatfs);		/* Register volume work area (never fails) */
 
   printf("\nOpen an existing file (message.txt).\n");
-    rc = f_open(&Fil, "MESSAGE.TXT", FA_READ);
+    rc = f_open(&Fil, "message.txt", FA_READ);
   if (rc) die(rc);
  
   printf("\nType the file content.\n");

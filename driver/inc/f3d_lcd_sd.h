@@ -2,9 +2,9 @@
  * 
  * Filename: f3d_lcd_sd.h
  * Description: 
- * Author: Bryce Himebaugh
+ * Author: Matthew Carey
  * Maintainer: 
- * Created: Thu Oct 24 05:19:07 2013
+ * Created: March 24, 2016
  * Last-Updated: 
  *           By: 
  *     Update #: 0
@@ -54,8 +54,8 @@
 #define LCD_CS_DEASSERT()  GPIO_SetBits(GPIOB, GPIO_Pin_12)
 
 // Create these macros needed for the SD card interface in the ff9b code
-// #define SD_CS_HIGH() 
-// #define SD_CS_LOW()  
+#define SD_CS_HIGH() GPIO_SetBits(GPIOB, GPIO_Pin_8)
+#define SD_CS_LOW() GPIO_ResetBits(GPIOB, GPIO_Pin_8)
 
 #define GPIO_PIN_SCE GPIO_Pin_12    
 
@@ -97,7 +97,6 @@ void f3d_lcd_setAddrWindow(uint16_t x0,uint16_t y0,uint16_t x1,uint16_t y1,uint8
 void f3d_lcd_pushColor(uint16_t *color,int cnt);
 static void f3d_lcd_writeCmd(uint8_t);
 void f3d_lcd_fillScreen(uint16_t);
-void f3d_lcd_fillScreen2(uint16_t);
 void f3d_lcd_drawPixel(uint8_t, uint8_t, uint16_t);
 void f3d_lcd_drawChar(uint8_t, uint8_t, unsigned char, uint16_t, uint16_t);
 void f3d_lcd_drawString(uint8_t, uint8_t, char *, uint16_t, uint16_t);
@@ -111,4 +110,3 @@ static void LcdWrite16(char dc,const uint16_t *data,int cnt);
 
 
 /* f3d_lcd_sd.h ends here */
-

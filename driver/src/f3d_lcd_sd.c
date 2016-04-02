@@ -2,9 +2,9 @@
  * 
  * Filename: f3d_lcd_sd.c
  * Description: 
- * Author: Bryce Himebaugh
+ * Author: Robert Mulligan
  * Maintainer: 
- * Created: Thu Oct 24 05:18:36 2013
+ * Created: 24 March, 2016
  * Last-Updated: 
  *           By: 
  *     Update #: 0
@@ -34,18 +34,6 @@
 
 /* Code: */
 
-/**********************************************************
-*   Author: Kyle Dijkstra
----
-*   Date Created: 2/25/16
----
-*   Last Modified by: Kyle Dijkstra
----
-*   Date Last Modified: 2/26/16
----
-*   Assignment: Lab7
----
-*/
 
 
 #include <f3d_lcd_sd.h>
@@ -60,7 +48,7 @@ void f3d_lcd_sd_interface_init(void) {
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOB, ENABLE);
   GPIO_InitTypeDef GPIO_InitStructure;
   GPIO_StructInit(&GPIO_InitStructure);
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9|GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;

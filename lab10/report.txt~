@@ -1,9 +1,0 @@
-
-
-
-
-* Q1.) What are we doing here and how does it relate to what we know about SPI?
-
-With clocks in SPI, the asynchronous communication requires the high state  to send data and low  state to recieve data. 
-
-
