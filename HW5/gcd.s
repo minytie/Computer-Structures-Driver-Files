@@ -3,7 +3,7 @@
 	.thumb
 	.global	gcd	
 	.type gcd, %function
-gcd:
+/*gcd:
 	push {r4-r7}
 	movs r2, #0	  @ this is D
 	movs r3, #1	  @ as a place holder
@@ -86,9 +86,88 @@ reset2:
 	
 	
 
-/*
+
 	Your implementation goes here. 
-*/
 FINAL:	
+	pop {r4-r7}
+	bx	lr
+*/
+gcd:
+	@ args = 0, pretend = 0, frame = 16
+	@ frame_needed = 1, uses_anonymous_args = 0
+	@ link register save eliminated.
+	push {r4-r7}
+	str	r0, [r7, #4]
+	str	r1, [r7]
+	movs	r3, #0
+	movs r4, #1	  		@ as a place holder
+	str	r3, [r7, #12]
+	b	.L2
+.L4:
+	ldr	r3, [r7, #4]
+	asrs	r3, r3, #1
+	str	r3, [r7, #4]
+	ldr	r3, [r7]
+	asrs	r3, r3, #1
+	str	r3, [r7]
+	ldr	r3, [r7, #12]
+	adds	r3, r3, #1
+	str	r3, [r7, #12]
+.L2:
+	ldr	r3, [r7, #4]
+	ands	r3, r3, r4
+	cmp	r3, #0
+	bne	.L3
+	ldr	r3, [r7]
+	ands	r3, r3, r4
+	cmp	r3, #0
+	beq	.L4
+.L3:
+	b	.L5
+.L9:
+	ldr	r3, [r7, #4]
+	ands	r3, r3, r4
+	cmp	r3, #0
+	bne	.L6
+	ldr	r3, [r7, #4]
+	asrs	r3, r3, #1
+	str	r3, [r7, #4]
+	b	.L5
+.L6:
+	ldr	r3, [r7]
+	ands	r3, r3, r4
+	cmp	r3, #0
+	bne	.L7
+	ldr	r3, [r7]
+	asrs	r3, r3, #1
+	str	r3, [r7]
+	b	.L5
+.L7:
+	ldr	r2, [r7, #4]
+	ldr	r3, [r7]
+	cmp	r2, r3
+	ble	.L8
+	ldr	r2, [r7, #4]
+	ldr	r3, [r7]
+	subs	r3, r2, r3
+	asrs	r3, r3, #1
+	str	r3, [r7, #4]
+	b	.L5
+.L8:
+	ldr	r2, [r7]
+	ldr	r3, [r7, #4]
+	subs	r3, r2, r3
+	asrs	r3, r3, #1
+	str	r3, [r7]
+.L5:
+	ldr	r2, [r7, #4]
+	ldr	r3, [r7]
+	cmp	r2, r3
+	bne	.L9
+	ldr	r2, [r7, #4]
+	ldr	r3, [r7, #12]
+	lsls	r3, r2
+	mov	r0, r3
+	adds	r7, r7, #20
 	pop {r4-r7}
 	bx	lr

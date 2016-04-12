@@ -41,9 +41,9 @@
 #include "test_functions.h"
 
 void main(void){
-  /* fib_test();*/
-  gcd_test();
   abs_test();
+  fib_test();
+  //  gcd_test();
 } 
 
 /* main.c ends here */

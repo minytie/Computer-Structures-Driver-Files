@@ -6,66 +6,69 @@ Disassembly of section .text:
 
 00000000 <gcd>:
    0:	b4f0      	push	{r4, r5, r6, r7}
-   2:	2200      	movs	r2, #0
-   4:	2301      	movs	r3, #1
-   6:	e7ff      	b.n	8 <while_statement1>
-
-00000008 <while_statement1>:
-   8:	0004      	movs	r4, r0
-   a:	000d      	movs	r5, r1
-   c:	401c      	ands	r4, r3
-   e:	401d      	ands	r5, r3
-  10:	432c      	orrs	r4, r5
-  12:	42ac      	cmp	r4, r5
-  14:	d003      	beq.n	1e <while_statement2>
-  16:	4118      	asrs	r0, r3
-  18:	411a      	asrs	r2, r3
-  1a:	18d2      	adds	r2, r2, r3
-  1c:	e7f4      	b.n	8 <while_statement1>
-
-0000001e <while_statement2>:
-  1e:	4288      	cmp	r0, r1
-  20:	d01c      	beq.n	5c <FINAL>
-  22:	0004      	movs	r4, r0
-  24:	000d      	movs	r5, r1
-  26:	401c      	ands	r4, r3
-  28:	429c      	cmp	r4, r3
-  2a:	d105      	bne.n	38 <shift_left_a>
-  2c:	401d      	ands	r5, r3
-  2e:	429d      	cmp	r5, r3
-  30:	d104      	bne.n	3c <shift_left_b>
-  32:	4288      	cmp	r0, r1
-  34:	dc06      	bgt.n	44 <reset>
-  36:	e00b      	b.n	50 <reset2>
-
-00000038 <shift_left_a>:
-  38:	4098      	lsls	r0, r3
-  3a:	e7f0      	b.n	1e <while_statement2>
-
-0000003c <shift_left_b>:
-  3c:	4119      	asrs	r1, r3
-  3e:	e7ee      	b.n	1e <while_statement2>
-
-00000040 <shift_1>:
-  40:	4118      	asrs	r0, r3
-  42:	e7ec      	b.n	1e <while_statement2>
-
-00000044 <reset>:
-  44:	0004      	movs	r4, r0
-  46:	000d      	movs	r5, r1
-  48:	1b64      	subs	r4, r4, r5
-  4a:	411c      	asrs	r4, r3
-  4c:	0020      	movs	r0, r4
-  4e:	e7e6      	b.n	1e <while_statement2>
-
-00000050 <reset2>:
-  50:	0004      	movs	r4, r0
-  52:	000d      	movs	r5, r1
-  54:	1b2d      	subs	r5, r5, r4
-  56:	411d      	asrs	r5, r3
-  58:	0029      	movs	r1, r5
-  5a:	e7e0      	b.n	1e <while_statement2>
-
-0000005c <FINAL>:
-  5c:	bcf0      	pop	{r4, r5, r6, r7}
-  5e:	4770      	bx	lr
+   2:	6078      	str	r0, [r7, #4]
+   4:	6039      	str	r1, [r7, #0]
+   6:	2300      	movs	r3, #0
+   8:	2401      	movs	r4, #1
+   a:	60fb      	str	r3, [r7, #12]
+   c:	e008      	b.n	20 <gcd+0x20>
+   e:	687b      	ldr	r3, [r7, #4]
+  10:	105b      	asrs	r3, r3, #1
+  12:	607b      	str	r3, [r7, #4]
+  14:	683b      	ldr	r3, [r7, #0]
+  16:	105b      	asrs	r3, r3, #1
+  18:	603b      	str	r3, [r7, #0]
+  1a:	68fb      	ldr	r3, [r7, #12]
+  1c:	3301      	adds	r3, #1
+  1e:	60fb      	str	r3, [r7, #12]
+  20:	687b      	ldr	r3, [r7, #4]
+  22:	4023      	ands	r3, r4
+  24:	2b00      	cmp	r3, #0
+  26:	d103      	bne.n	30 <gcd+0x30>
+  28:	683b      	ldr	r3, [r7, #0]
+  2a:	4023      	ands	r3, r4
+  2c:	2b00      	cmp	r3, #0
+  2e:	d0ee      	beq.n	e <gcd+0xe>
+  30:	e01e      	b.n	70 <gcd+0x70>
+  32:	687b      	ldr	r3, [r7, #4]
+  34:	4023      	ands	r3, r4
+  36:	2b00      	cmp	r3, #0
+  38:	d103      	bne.n	42 <gcd+0x42>
+  3a:	687b      	ldr	r3, [r7, #4]
+  3c:	105b      	asrs	r3, r3, #1
+  3e:	607b      	str	r3, [r7, #4]
+  40:	e016      	b.n	70 <gcd+0x70>
+  42:	683b      	ldr	r3, [r7, #0]
+  44:	4023      	ands	r3, r4
+  46:	2b00      	cmp	r3, #0
+  48:	d103      	bne.n	52 <gcd+0x52>
+  4a:	683b      	ldr	r3, [r7, #0]
+  4c:	105b      	asrs	r3, r3, #1
+  4e:	603b      	str	r3, [r7, #0]
+  50:	e00e      	b.n	70 <gcd+0x70>
+  52:	687a      	ldr	r2, [r7, #4]
+  54:	683b      	ldr	r3, [r7, #0]
+  56:	429a      	cmp	r2, r3
+  58:	dd05      	ble.n	66 <gcd+0x66>
+  5a:	687a      	ldr	r2, [r7, #4]
+  5c:	683b      	ldr	r3, [r7, #0]
+  5e:	1ad3      	subs	r3, r2, r3
+  60:	105b      	asrs	r3, r3, #1
+  62:	607b      	str	r3, [r7, #4]
+  64:	e004      	b.n	70 <gcd+0x70>
+  66:	683a      	ldr	r2, [r7, #0]
+  68:	687b      	ldr	r3, [r7, #4]
+  6a:	1ad3      	subs	r3, r2, r3
+  6c:	105b      	asrs	r3, r3, #1
+  6e:	603b      	str	r3, [r7, #0]
+  70:	687a      	ldr	r2, [r7, #4]
+  72:	683b      	ldr	r3, [r7, #0]
+  74:	429a      	cmp	r2, r3
+  76:	d1dc      	bne.n	32 <gcd+0x32>
+  78:	687a      	ldr	r2, [r7, #4]
+  7a:	68fb      	ldr	r3, [r7, #12]
+  7c:	4093      	lsls	r3, r2
+  7e:	4618      	mov	r0, r3
+  80:	3714      	adds	r7, #20
+  82:	bcf0      	pop	{r4, r5, r6, r7}
+  84:	4770      	bx	lr
