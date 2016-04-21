@@ -52,5 +52,5 @@ fib:
 .L3:
 	mov	r0, r3
 	adds	r7, r7, #28
-	pop {r4-r7}
+	pop 	{r4-r7}
 	bx	lr			

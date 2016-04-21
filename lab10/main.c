@@ -2,7 +2,7 @@
  * 
  * Filename: main.c
  * Description: 
- * Author: 
+ * Author:  Robert Mulligan 
  * Maintainer: 
  * Created: Thu Jan 10 11:23:43 2013
  * Last-Updated: 

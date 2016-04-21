@@ -39,7 +39,12 @@
 extern void drawRect(uint8_t x, uint8_t y, uint8_t width, uint8_t depth, uint16_t color);
 
 /*initializes a rectangle*/
-void initRect(rect_t *rect, uint8_t x, uint8_t y, uint8_t width, uint8_t depth, uint16_t color) {
+void initRect(rect_t *rect, uint8_t x, uint8_t y, uint8_t width, uint8_t depth, uint16_t color, int flip) {
+  
+  if(flip) {
+  rect->pos_x = y;
+  rect->pos_y = x;
+  }
   rect->pos_x = x;
   rect->pos_y = y;
   rect->width = width;

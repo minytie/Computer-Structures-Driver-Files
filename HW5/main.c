@@ -2,7 +2,7 @@
  * 
  * Filename: main.c
  * Description: 
- * Author: Bryce Himebaugh
+ * Author: Robert Mulligan
  * Maintainer: 
  * Created: Tue Oct 27 12:16:39 2015
  * Last-Updated: 
@@ -43,7 +43,7 @@
 void main(void){
   abs_test();
   fib_test();
-  //  gcd_test();
+  //gcd_test();
 } 
 
 /* main.c ends here */

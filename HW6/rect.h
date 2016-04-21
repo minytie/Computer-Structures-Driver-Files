@@ -48,7 +48,7 @@ typedef struct rect {
   uint16_t color;
 } rect_t;
 
-void initRect(rect_t *, uint8_t, uint8_t, uint8_t, uint8_t, uint16_t);
+void initRect(rect_t *, uint8_t, uint8_t, uint8_t, uint8_t, uint16_t, int);
 void eraseRect(rect_t *, uint16_t);
 void redrawRect(rect_t *);
 int moveRect(rect_t *, int8_t, int8_t, uint16_t);

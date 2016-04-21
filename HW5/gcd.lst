@@ -67,7 +67,7 @@ Disassembly of section .text:
   76:	d1dc      	bne.n	32 <gcd+0x32>
   78:	687a      	ldr	r2, [r7, #4]
   7a:	68fb      	ldr	r3, [r7, #12]
-  7c:	4093      	lsls	r3, r2
+  7c:	40d3      	lsrs	r3, r2
   7e:	4618      	mov	r0, r3
   80:	3714      	adds	r7, #20
   82:	bcf0      	pop	{r4, r5, r6, r7}

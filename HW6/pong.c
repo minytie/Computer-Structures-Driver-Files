@@ -2,7 +2,7 @@
  * 
  * Filename: pong.c
  * Description: 
- * Author: Bryce Himebaugh
+ * Author: Robert Mulligan
  * Maintainer: 
  * Created: Mon Aug 11 10:50:08 2014
  * Last-Updated: 
@@ -55,6 +55,8 @@ rect_t ball;
 int ball_vx = 1;
 int ball_vy = 2;
 
+int flip; 
+
 /*The event loop that handles the key input*/
 void event_loop(void) {
   static int paddle_left_move = 0; 
@@ -98,6 +100,8 @@ void event_loop(void) {
       printf("Q PRESSED - Exit Program\n");
       exit(0);
       break;
+    case SDLK_n:
+      printcords();
     default:
       break;
     }
@@ -109,6 +113,35 @@ void event_loop(void) {
   if (paddle_right_move) {
     moveRect(&right_paddle, 0, paddle_right_move, BLACK);
   }
+}
+
+
+void printcords(void) {
+  int x, y, z; // values i'm printing
+  int pos = (int) rand() * 4; // random line
+  
+  FILE *ifp;
+  char *mode = "r";
+  
+  ssize_t read;
+  
+  ifp = fopen("cords.txt", mode);
+  
+  if (ifp == NULL) {
+    fprintf(stderr, "Can't open input file in.list!\n");
+    exit(1);
+  }
+  
+  
+  while (!feof(file)) {
+   
+  }
+  
+
+  printf("-----N pressed, showing cordinates-----\n"); 
+  printf("%s", read_line);   
+  printf("\tCordinates: (%d,%d,%d) \n", x, y, z);
+  
 }
 
 /*Where the collisions are handled*/
@@ -140,10 +173,23 @@ void pong_game(void) {
 /*Where the pong_game() is called the rectangels are initialized. */
 int c335_main( int argc, char *argv[] ) {
 
+  int  capL = 'L', lowL = 'l';
+
+  flip = 0; 
+
+  if(argc > 0){ 
+    if(argv[0] == capL ||  argv[0] == lowL)
+      { flip = 1; }
+      }
+
+
+
   fillScreen(BLACK);
-  initRect(&left_paddle,0,ST7735_height/2-(PADDLE_HEIGHT/2),PADDLE_THICKNESS,PADDLE_HEIGHT,WHITE);
-  initRect(&right_paddle,ST7735_width-PADDLE_THICKNESS,ST7735_height/2-(PADDLE_HEIGHT/2),PADDLE_THICKNESS,PADDLE_HEIGHT,WHITE);
-  initRect(&ball,ST7735_width/2-(BALL_DIM/2),ST7735_height/2-(BALL_DIM/2),BALL_DIM,BALL_DIM,WHITE);
+  initRect(&left_paddle,0,ST7735_height/2-(PADDLE_HEIGHT/2),PADDLE_THICKNESS,PADDLE_HEIGHT,WHITE,flip);
+  initRect(&right_paddle,ST7735_width-PADDLE_THICKNESS,ST7735_height/2-(PADDLE_HEIGHT/2),PADDLE_THICKNESS,PADDLE_HEIGHT,WHITE,flip);
+  initRect(&ball,ST7735_width/2-(BALL_DIM/2),ST7735_height/2-(BALL_DIM/2),BALL_DIM,BALL_DIM,WHITE,flip);
+
+
 
   while (1) {
     pong_game();

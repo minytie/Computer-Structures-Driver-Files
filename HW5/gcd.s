@@ -10,20 +10,20 @@
 	b while_statement1
 
 while_statement1:
-	movs r4, r0	@setup 2 variables for comparison
-	movs r5, r1
+	movs r4, #1	@setup 2 variables for comparison
+	movs r5, #1
 	
-	ands r4, r3	@ set them as the D variable
-	ands r5, r3
+	str r4, r2	@ set them as the D variable
+	str r5, r2
 
 	orrs r4,r4,r5   @ this is: (A&1) || (B&1)
 	cmp r4, r5
 	beq while_statement2
 	
-	asrs r0, r3	@shift A & B >>> 1 (or r5 here)
-	asrs r2, r3	
+	asrs r0, #1	@shift A & B >>> 1 (or r5 here)
+	asrs r2, #1	
 	
-	adds r2, r3	@ increment D
+	adds r2, #1	@ increment D
 	b while_statement1
 
 while_statement2:
@@ -36,11 +36,11 @@ while_statement2:
 	movs r5, r1
 
 	ands r4, r3	@(A &1)
-	cmp  r4, r3	@(A &1) == 1
+	cmp  r4, #1	@(A &1) == 1
 	bne  shift_left_a
 
 	ands r5, r3	@(B & 1)
-	cmp r5, r3	@(B & 1)
+	cmp r5, #1	@(B & 1)
 	bne shift_left_b @(B & 1) == 1
 
 	cmp r0, r1
@@ -49,17 +49,17 @@ while_statement2:
 
 
 shift_left_a:
-	lsls r0,r3 	@shift by D
+	lsls r0, r2 	@shift by D
 	b while_statement2
 	
 
 shift_left_b:
-	asrs r1, r3	  @ b>>> 1
+	asrs r1, #1	  @ b>>> 1
 	b while_statement2
 
 
 shift_1:
-	asrs r0, r3	 @ a>>> 1
+	asrs r0, #1	 @ a>>> 1
 	b while_statement2
 
 	
@@ -84,23 +84,17 @@ reset2:
 
 	b while_statement2
 	
-	
-
-
-	Your implementation goes here. 
 FINAL:	
 	pop {r4-r7}
 	bx	lr
 */
+
 gcd:
-	@ args = 0, pretend = 0, frame = 16
-	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	push {r4-r7}
+	push	 {r4-r7}
 	str	r0, [r7, #4]
 	str	r1, [r7]
 	movs	r3, #0
-	movs r4, #1	  		@ as a place holder
+	movs	r4, #1
 	str	r3, [r7, #12]
 	b	.L2
 .L4:
@@ -166,7 +160,7 @@ gcd:
 	bne	.L9
 	ldr	r2, [r7, #4]
 	ldr	r3, [r7, #12]
-	lsls	r3, r2
+	lsrs	r3, r2        	@some sort of problem here....
 	mov	r0, r3
 	adds	r7, r7, #20
 	pop {r4-r7}

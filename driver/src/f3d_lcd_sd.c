@@ -45,6 +45,7 @@ static uint8_t madctlcurrent = MADVAL(MADCTLGRAPHICS);
 void f3d_lcd_sd_interface_init(void) {
  /* vvvvvvvvvvv pin initialization for the LCD goes here vvvvvvvvvv*/ 
   
+
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOB, ENABLE);
   GPIO_InitTypeDef GPIO_InitStructure;
   GPIO_StructInit(&GPIO_InitStructure);
@@ -147,6 +148,10 @@ static const struct lcd_cmdBuf initializers[] = {
 };
 
 void f3d_lcd_init(void) {
+
+
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
+
   const struct lcd_cmdBuf *cmd;
 
   f3d_lcd_sd_interface_init();    // Setup SPI2 Link and configure GPIO pins
