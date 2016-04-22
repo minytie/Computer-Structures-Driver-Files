@@ -90,78 +90,90 @@ FINAL:
 */
 
 gcd:
-	push	 {r4-r7}
+
+.LFB0:
+	push	{r7, lr}
+	sub	sp, sp, #16		@need 16 bits
+	add	r7, sp, #0
 	str	r0, [r7, #4]
 	str	r1, [r7]
-	movs	r3, #0
-	movs	r4, #1
+	movs	r3, #0 		@ flags?
 	str	r3, [r7, #12]
-	b	.L2
-.L4:
+	b	.WHILE1
+
+.OPERATION:
 	ldr	r3, [r7, #4]
-	asrs	r3, r3, #1
+	asrs	r3, r3, #1		@ flags?
 	str	r3, [r7, #4]
 	ldr	r3, [r7]
-	asrs	r3, r3, #1
+	asrs	r3, r3, #1		@ flags?
 	str	r3, [r7]
 	ldr	r3, [r7, #12]
-	adds	r3, r3, #1
+	adds	r3, r3, #1		@ flags
 	str	r3, [r7, #12]
-.L2:
-	ldr	r3, [r7, #4]
-	ands	r3, r3, r4
-	cmp	r3, #0
-	bne	.L3
-	ldr	r3, [r7]
-	ands	r3, r3, r4
-	cmp	r3, #0
-	beq	.L4
-.L3:
-	b	.L5
-.L9:
-	ldr	r3, [r7, #4]
-	ands	r3, r3, r4
-	cmp	r3, #0
-	bne	.L6
+
+.WHILE1:
+	ldr	r2, [r7, #4]
+	movs	r3, #1
+	ands	r3, r2			@ flags
+	bne	.FINISH
+	ldr	r2, [r7]
+	movs	r3, #1
+	ands	r3, r2
+	beq	.OPERATION
+
+.CHECK:
+	ldr	r2, [r7, #4]
+	movs	r3, #1
+	ands	r3, r2
+	bne	.NEXT
 	ldr	r3, [r7, #4]
 	asrs	r3, r3, #1
 	str	r3, [r7, #4]
-	b	.L5
-.L6:
-	ldr	r3, [r7]
-	ands	r3, r3, r4
-	cmp	r3, #0
-	bne	.L7
+	b	.FINISH
+
+.NEXT:
+	ldr	r2, [r7]
+	movs	r3, #1
+	ands	r3, r2
+	bne	.SHIFT2
 	ldr	r3, [r7]
 	asrs	r3, r3, #1
 	str	r3, [r7]
-	b	.L5
-.L7:
+	b	.FINISH
+
+.SHIFT2:
 	ldr	r2, [r7, #4]
 	ldr	r3, [r7]
 	cmp	r2, r3
-	ble	.L8
+	ble	.SHIFT
 	ldr	r2, [r7, #4]
 	ldr	r3, [r7]
 	subs	r3, r2, r3
 	asrs	r3, r3, #1
 	str	r3, [r7, #4]
-	b	.L5
-.L8:
+	b	.FINISH
+
+.SHIFT:
 	ldr	r2, [r7]
 	ldr	r3, [r7, #4]
 	subs	r3, r2, r3
 	asrs	r3, r3, #1
 	str	r3, [r7]
-.L5:
+
+.FINISH:
 	ldr	r2, [r7, #4]
 	ldr	r3, [r7]
 	cmp	r2, r3
-	bne	.L9
+	bne	.CHECK
 	ldr	r2, [r7, #4]
 	ldr	r3, [r7, #12]
-	lsrs	r3, r2        	@some sort of problem here....
-	mov	r0, r3
-	adds	r7, r7, #20
-	pop {r4-r7}
+	mov	r1, r2
+	lsls	r1, r1, r3
+	movs	r3, r1
+	movs	r0, r3
+	mov	sp, r7
+	add	sp, sp, #16
+	pop	{r7, pc}
 	bx	lr
+ 

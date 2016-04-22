@@ -42,8 +42,8 @@
 
 void main(void){
   abs_test();
+  gcd_test();
   fib_test();
-  //gcd_test();
 } 
 
 /* main.c ends here */

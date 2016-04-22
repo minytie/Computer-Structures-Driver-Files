@@ -5,70 +5,87 @@ gcd.o:     file format elf32-littlearm
 Disassembly of section .text:
 
 00000000 <gcd>:
-   0:	b4f0      	push	{r4, r5, r6, r7}
-   2:	6078      	str	r0, [r7, #4]
-   4:	6039      	str	r1, [r7, #0]
-   6:	2300      	movs	r3, #0
-   8:	2401      	movs	r4, #1
-   a:	60fb      	str	r3, [r7, #12]
-   c:	e008      	b.n	20 <gcd+0x20>
-   e:	687b      	ldr	r3, [r7, #4]
-  10:	105b      	asrs	r3, r3, #1
-  12:	607b      	str	r3, [r7, #4]
-  14:	683b      	ldr	r3, [r7, #0]
-  16:	105b      	asrs	r3, r3, #1
-  18:	603b      	str	r3, [r7, #0]
-  1a:	68fb      	ldr	r3, [r7, #12]
-  1c:	3301      	adds	r3, #1
-  1e:	60fb      	str	r3, [r7, #12]
-  20:	687b      	ldr	r3, [r7, #4]
-  22:	4023      	ands	r3, r4
-  24:	2b00      	cmp	r3, #0
-  26:	d103      	bne.n	30 <gcd+0x30>
-  28:	683b      	ldr	r3, [r7, #0]
-  2a:	4023      	ands	r3, r4
-  2c:	2b00      	cmp	r3, #0
-  2e:	d0ee      	beq.n	e <gcd+0xe>
-  30:	e01e      	b.n	70 <gcd+0x70>
-  32:	687b      	ldr	r3, [r7, #4]
-  34:	4023      	ands	r3, r4
-  36:	2b00      	cmp	r3, #0
-  38:	d103      	bne.n	42 <gcd+0x42>
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	af00      	add	r7, sp, #0
+   6:	6078      	str	r0, [r7, #4]
+   8:	6039      	str	r1, [r7, #0]
+   a:	2300      	movs	r3, #0
+   c:	60fb      	str	r3, [r7, #12]
+   e:	e008      	b.n	22 <.WHILE1>
+
+00000010 <.OPERATION>:
+  10:	687b      	ldr	r3, [r7, #4]
+  12:	105b      	asrs	r3, r3, #1
+  14:	607b      	str	r3, [r7, #4]
+  16:	683b      	ldr	r3, [r7, #0]
+  18:	105b      	asrs	r3, r3, #1
+  1a:	603b      	str	r3, [r7, #0]
+  1c:	68fb      	ldr	r3, [r7, #12]
+  1e:	3301      	adds	r3, #1
+  20:	60fb      	str	r3, [r7, #12]
+
+00000022 <.WHILE1>:
+  22:	687a      	ldr	r2, [r7, #4]
+  24:	2301      	movs	r3, #1
+  26:	4013      	ands	r3, r2
+  28:	d122      	bne.n	70 <.FINISH>
+  2a:	683a      	ldr	r2, [r7, #0]
+  2c:	2301      	movs	r3, #1
+  2e:	4013      	ands	r3, r2
+  30:	d0ee      	beq.n	10 <.OPERATION>
+
+00000032 <.CHECK>:
+  32:	687a      	ldr	r2, [r7, #4]
+  34:	2301      	movs	r3, #1
+  36:	4013      	ands	r3, r2
+  38:	d103      	bne.n	42 <.NEXT>
   3a:	687b      	ldr	r3, [r7, #4]
   3c:	105b      	asrs	r3, r3, #1
   3e:	607b      	str	r3, [r7, #4]
-  40:	e016      	b.n	70 <gcd+0x70>
-  42:	683b      	ldr	r3, [r7, #0]
-  44:	4023      	ands	r3, r4
-  46:	2b00      	cmp	r3, #0
-  48:	d103      	bne.n	52 <gcd+0x52>
+  40:	e016      	b.n	70 <.FINISH>
+
+00000042 <.NEXT>:
+  42:	683a      	ldr	r2, [r7, #0]
+  44:	2301      	movs	r3, #1
+  46:	4013      	ands	r3, r2
+  48:	d103      	bne.n	52 <.SHIFT2>
   4a:	683b      	ldr	r3, [r7, #0]
   4c:	105b      	asrs	r3, r3, #1
   4e:	603b      	str	r3, [r7, #0]
-  50:	e00e      	b.n	70 <gcd+0x70>
+  50:	e00e      	b.n	70 <.FINISH>
+
+00000052 <.SHIFT2>:
   52:	687a      	ldr	r2, [r7, #4]
   54:	683b      	ldr	r3, [r7, #0]
   56:	429a      	cmp	r2, r3
-  58:	dd05      	ble.n	66 <gcd+0x66>
+  58:	dd05      	ble.n	66 <.SHIFT>
   5a:	687a      	ldr	r2, [r7, #4]
   5c:	683b      	ldr	r3, [r7, #0]
   5e:	1ad3      	subs	r3, r2, r3
   60:	105b      	asrs	r3, r3, #1
   62:	607b      	str	r3, [r7, #4]
-  64:	e004      	b.n	70 <gcd+0x70>
+  64:	e004      	b.n	70 <.FINISH>
+
+00000066 <.SHIFT>:
   66:	683a      	ldr	r2, [r7, #0]
   68:	687b      	ldr	r3, [r7, #4]
   6a:	1ad3      	subs	r3, r2, r3
   6c:	105b      	asrs	r3, r3, #1
   6e:	603b      	str	r3, [r7, #0]
+
+00000070 <.FINISH>:
   70:	687a      	ldr	r2, [r7, #4]
   72:	683b      	ldr	r3, [r7, #0]
   74:	429a      	cmp	r2, r3
-  76:	d1dc      	bne.n	32 <gcd+0x32>
+  76:	d1dc      	bne.n	32 <.CHECK>
   78:	687a      	ldr	r2, [r7, #4]
   7a:	68fb      	ldr	r3, [r7, #12]
-  7c:	40d3      	lsrs	r3, r2
-  7e:	4618      	mov	r0, r3
-  80:	3714      	adds	r7, #20
-  82:	bcf0      	pop	{r4, r5, r6, r7}
-  84:	4770      	bx	lr
+  7c:	4611      	mov	r1, r2
+  7e:	4099      	lsls	r1, r3
+  80:	000b      	movs	r3, r1
+  82:	0018      	movs	r0, r3
+  84:	46bd      	mov	sp, r7
+  86:	b004      	add	sp, #16
+  88:	bd80      	pop	{r7, pc}
+  8a:	4770      	bx	lr

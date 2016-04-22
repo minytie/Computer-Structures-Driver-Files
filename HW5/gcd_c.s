@@ -292,7 +292,7 @@ gcd_c:
 .LASF1:
 	.ascii	"gcd_c.c\000"
 .LASF2:
-	.ascii	"/nfs/nfs4/home/rpmullig/CS-Spring-2016/HW5\000"
+	.ascii	"/u/rpmullig/CS-Spring-2016/HW5\000"
 .LASF0:
 	.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
 	.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g\000"
