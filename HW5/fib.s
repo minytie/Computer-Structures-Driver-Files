@@ -17,20 +17,22 @@ fib:
 	str	r3, [r7, #12]
 	ldr	r3, [r7, #4]
 	cmp	r3, #0
-	bne	.L2
+	bne	.NEXT
 	movs	r3, #0
-	b	.L3
-.L2:
+	b	.FINISH
+.NEXT:
 	ldr	r3, [r7, #4]
 	cmp	r3, #1
-	bne	.L4
+	bne	.STORE
 	movs	r3, #1
-	b	.L3
-.L4:
+	b	.FINISH
+
+.STORE:
 	movs	r3, #0
 	str	r3, [r7, #8]
-	b	.L5
-.L6:
+	b	.RECURE2
+
+.RECURE:
 	ldr	r2, [r7, #16]
 	ldr	r3, [r7, #20]
 	add	r3, r3, r2
@@ -42,15 +44,17 @@ fib:
 	ldr	r3, [r7, #8]
 	adds	r3, r3, #1
 	str	r3, [r7, #8]
-.L5:
+
+.RECURE2:
 	ldr	r3, [r7, #4]
 	subs	r2, r3, #2
 	ldr	r3, [r7, #8]
 	cmp	r2, r3
-	bgt	.L6
+	bgt	.RECURE
 	ldr	r3, [r7, #12]
-.L3:
+
+.FINISH:
 	mov	r0, r3
 	adds	r7, r7, #28
 	pop 	{r4-r7}
-	bx	lr			
+	bx	lr	
