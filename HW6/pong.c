@@ -117,31 +117,37 @@ void event_loop(void) {
 
 
 void printcords(void) {
-  int x, y, z; // values i'm printing
-  int pos = (int) rand() * 4; // random line
   
-  FILE *ifp;
+  int rand_line = (int) (abs(rand() % 32)); // random line
+  // printf("this is the random line variable: %d \n", rand_line); 
+  FILE *file;
   char *mode = "r";
   
-  ssize_t read;
+  file = fopen("cords.txt", mode);
   
-  ifp = fopen("cords.txt", mode);
-  
-  if (ifp == NULL) {
+  if (file == NULL) {
     fprintf(stderr, "Can't open input file in.list!\n");
     exit(1);
   }
   
-  
-  while (!feof(file)) {
-   
-  }
-  
+  char *line; 
+  int count = 0;
+  while (count < 9)
+    {
+      count++;
+      fgets(line, 30, file);
+      
+      if ( count == rand_line && line != NULL )
+	{  
+	  printf("%s", line);
+	  //  printf("------- printed line number: %d --------- \n", count); 
+	    drawString(40,100,line,WHITE,BLACK);
+	}
+    }
+ 
 
-  printf("-----N pressed, showing cordinates-----\n"); 
-  printf("%s", read_line);   
-  printf("\tCordinates: (%d,%d,%d) \n", x, y, z);
-  
+  fclose(file); 
+
 }
 
 /*Where the collisions are handled*/
