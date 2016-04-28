@@ -1,0 +1,26 @@
+Robert Mulligan
+
+-Files are in Nate Krumman's FINAL folder for CS-SPRING-2016 github directory
+
+
+Describe each of the tasks that you were responsible for performing and how each contributed to the overall project. [15]
+
+	-Responsible for driver files and fixing the board for a second nunchuk
+	-Helped debug game logic
+	-came up with structure and implementation of bitmaps and made a few designs
+	-Fixed sound driver files
+	-Most of time I was debugging the code
+
+What technical challenges did you encounter in completing your tasks? [5]
+
+	-A wii nunchuk we were using was broken totally in a hardware way, making all of our efforst to code a fix ineffective
+	-UART on Nate's driver files didn't work properly, causing debugging issues
+	-Difficult to debug peripherals
+	-Massive logic arguments needed, lack of objects in C
+	-Conceptual understanding of board and peices became difficutlt
+
+What would you do differently if you could start the project over? [5]
+
+	-Fixed UART and all other drivers before starting
+	-Done a better job of using github forking and picked best driver files
+	-Made structs and done game logic based upon a cleaner struct organization
