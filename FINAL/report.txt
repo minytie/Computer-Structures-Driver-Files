@@ -5,8 +5,10 @@ Robert Mulligan
 
 Describe each of the tasks that you were responsible for performing and how each contributed to the overall project. [15]
 
-	-Responsible for driver files and fixing the board for a second nunchuk
+	-Responsible for driver files and fixing the driver fiels for a second nunchuk
+	-creating the Makefile used to compile and link code for board download and testing
 	-Helped debug game logic
+	-Graphic logic for board
 	-came up with structure and implementation of bitmaps and made a few designs
 	-Fixed sound driver files
 	-Most of time I was debugging the code
